@@ -126,7 +126,6 @@ local function runLoadingAnimation(toggleData)
     toggleData.loadingBg.Visible = true
     toggleData.loadingBar.Size = UDim2.new(0, 0, 1, 0)
     local duration = 5
-    local startTime = tick()
 
     toggleData.button.AutoButtonColor = false
     toggleData.button.Text = "Loading..."
@@ -182,7 +181,7 @@ local MiniIcon = Instance.new("ImageButton", ScreenGui)
 MiniIcon.Size = UDim2.new(0, 48, 0, 48)
 MiniIcon.Position = UDim2.new(1, -60, 0, 15)
 MiniIcon.BackgroundTransparency = 1
-MiniIcon.Image = "rbxassetid://6031300581" -- Пылесос или иконка
+MiniIcon.Image = "rbxassetid://6031300581"
 MiniIcon.Visible = false
 MiniIcon.AutoButtonColor = true
 
