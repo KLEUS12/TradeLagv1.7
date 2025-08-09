@@ -1,0 +1,258 @@
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+
+local player = game.Players.LocalPlayer or game:GetService("Players").LocalPlayer
+while not player do
+wait()
+player = game.Players.LocalPlayer or game:GetService("Players").LocalPlayer
+end
+local PlayerGui = player:WaitForChild("PlayerGui")
+
+if PlayerGui:FindFirstChild("LoadingMenu") then
+PlayerGui.LoadingMenu:Destroy()
+end
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "LoadingMenu"
+ScreenGui.Parent = PlayerGui
+
+local Frame = Instance.new("Frame")
+Frame.Parent = ScreenGui
+Frame.Size = UDim2.new(0, 350, 0, 150)
+Frame.Position = UDim2.new(0.5, -175, 0.5, -75)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
+Frame.BorderSizePixel = 0
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 18)
+UICorner.Parent = Frame
+
+local Gradient = Instance.new("UIGradient")
+Gradient.Color = ColorSequence.new{
+ColorSequenceKeypoint.new(0, Color3.fromRGB(120, 0, 255)),
+ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 200, 255))
+}
+Gradient.Rotation = 45
+Gradient.Parent = Frame
+
+local Title = Instance.new("TextLabel")
+Title.Parent = Frame
+Title.Text = "TradeLock v.1.7"
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 20
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0, 15, 0, 12)
+Title.Size = UDim2.new(0, 200, 0, 25)
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+Title.TextStrokeTransparency = 0.5
+
+local SettingsButton = Instance.new("ImageButton")
+SettingsButton.Parent = Frame
+SettingsButton.Size = UDim2.new(0, 28, 0, 28)
+SettingsButton.Position = UDim2.new(1, -75, 0, 10)
+SettingsButton.BackgroundTransparency = 1
+SettingsButton.Image = "rbxassetid://6031280882"
+SettingsButton.AutoButtonColor = false
+
+local CloseButton = Instance.new("ImageButton")
+CloseButton.Parent = Frame
+CloseButton.Size = UDim2.new(0, 28, 0, 28)
+CloseButton.Position = UDim2.new(1, -35, 0, 10)
+CloseButton.BackgroundTransparency = 1
+CloseButton.Image = "rbxassetid://6031094678"
+CloseButton.AutoButtonColor = false
+
+local LoadingBarBackground = Instance.new("Frame")
+LoadingBarBackground.Parent = Frame
+LoadingBarBackground.BackgroundColor3 = Color3.fromRGB(50, 50, 70)
+LoadingBarBackground.Position = UDim2.new(0, 15, 1, -40)
+LoadingBarBackground.Size = UDim2.new(1, -30, 0, 25)
+LoadingBarBackground.BorderSizePixel = 0
+local bgCorner = Instance.new("UICorner")
+bgCorner.CornerRadius = UDim.new(0, 12)
+bgCorner.Parent = LoadingBarBackground
+
+local LoadingBar = Instance.new("Frame")
+LoadingBar.Parent = LoadingBarBackground
+LoadingBar.BackgroundColor3 = Color3.fromRGB(170, 85, 255)
+LoadingBar.Size = UDim2.new(0, 0, 1, 0)
+LoadingBar.BorderSizePixel = 0
+local barCorner = Instance.new("UICorner")
+barCorner.CornerRadius = UDim.new(0, 12)
+barCorner.Parent = LoadingBar
+
+local TradeLagButton = Instance.new("TextButton")
+TradeLagButton.Parent = Frame
+TradeLagButton.Size = UDim2.new(0, 70, 0, 35)
+TradeLagButton.Position = UDim2.new(0, 15, 0, 60)
+TradeLagButton.Font = Enum.Font.GothamBold
+TradeLagButton.TextSize = 16
+TradeLagButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+TradeLagButton.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+TradeLagButton.Text = "OFF"
+TradeLagButton.Visible = false
+local toggleCorner = Instance.new("UICorner")
+toggleCorner.CornerRadius = UDim.new(0, 12)
+toggleCorner.Parent = TradeLagButton
+
+local TradeLagLabel = Instance.new("TextLabel")
+TradeLagLabel.Parent = Frame
+TradeLagLabel.Size = UDim2.new(0, 90, 0, 35)
+TradeLagLabel.Position = UDim2.new(0, 95, 0, 60)
+TradeLagLabel.BackgroundTransparency = 1
+TradeLagLabel.Text = "TradeLag"
+TradeLagLabel.Font = Enum.Font.GothamBold
+TradeLagLabel.TextSize = 18
+TradeLagLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TradeLagLabel.Visible = false
+
+local TradeLagLoadingBG = Instance.new("Frame")
+TradeLagLoadingBG.Parent = Frame
+TradeLagLoadingBG.BackgroundColor3 = Color3.fromRGB(50, 50, 70)
+TradeLagLoadingBG.Position = UDim2.new(0, 170, 0, 65)
+TradeLagLoadingBG.Size = UDim2.new(0, 150, 0, 20)
+TradeLagLoadingBG.BorderSizePixel = 0
+TradeLagLoadingBG.Visible = false
+local tradeLagLoadingCorner = Instance.new("UICorner")
+tradeLagLoadingCorner.CornerRadius = UDim.new(0, 10)
+tradeLagLoadingCorner.Parent = TradeLagLoadingBG
+
+local TradeLagLoadingBar = Instance.new("Frame")
+TradeLagLoadingBar.Parent = TradeLagLoadingBG
+TradeLagLoadingBar.BackgroundColor3 = Color3.fromRGB(170, 85, 255)
+TradeLagLoadingBar.Size = UDim2.new(0, 0, 1, 0)
+TradeLagLoadingBar.BorderSizePixel = 0
+local tradeLagBarCorner = Instance.new("UICorner")
+tradeLagBarCorner.CornerRadius = UDim.new(0, 10)
+tradeLagBarCorner.Parent = TradeLagLoadingBar
+
+local TradeVacuumButton = Instance.new("TextButton")
+TradeVacuumButton.Parent = Frame
+TradeVacuumButton.Size = UDim2.new(0, 70, 0, 35)
+TradeVacuumButton.Position = UDim2.new(0, 15, 0, 105)
+TradeVacuumButton.Font = Enum.Font.GothamBold
+TradeVacuumButton.TextSize = 16
+TradeVacuumButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+TradeVacuumButton.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+TradeVacuumButton.Text = "OFF"
+TradeVacuumButton.Visible = false
+local vacuumToggleCorner = Instance.new("UICorner")
+vacuumToggleCorner.CornerRadius = UDim.new(0, 12)
+vacuumToggleCorner.Parent = TradeVacuumButton
+
+local TradeVacuumLabel = Instance.new("TextLabel")
+TradeVacuumLabel.Parent = Frame
+TradeVacuumLabel.Size = UDim2.new(0, 110, 0, 35)
+TradeVacuumLabel.Position = UDim2.new(0, 95, 0, 105)
+TradeVacuumLabel.BackgroundTransparency = 1
+TradeVacuumLabel.Text = "TradeVacuum"
+TradeVacuumLabel.Font = Enum.Font.GothamBold
+TradeVacuumLabel.TextSize = 18
+TradeVacuumLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TradeVacuumLabel.Visible = false
+
+local TradeVacuumLoadingBG = Instance.new("Frame")
+TradeVacuumLoadingBG.Parent = Frame
+TradeVacuumLoadingBG.BackgroundColor3 = Color3.fromRGB(50, 50, 70)
+TradeVacuumLoadingBG.Position = UDim2.new(0, 170, 0, 110)
+TradeVacuumLoadingBG.Size = UDim2.new(0, 150, 0, 20)
+TradeVacuumLoadingBG.BorderSizePixel = 0
+TradeVacuumLoadingBG.Visible = false
+local vacuumLoadingCorner = Instance.new("UICorner")
+vacuumLoadingCorner.CornerRadius = UDim.new(0, 10)
+vacuumLoadingCorner.Parent = TradeVacuumLoadingBG
+
+local TradeVacuumLoadingBar = Instance.new("Frame")
+TradeVacuumLoadingBar.Parent = TradeVacuumLoadingBG
+TradeVacuumLoadingBar.BackgroundColor3 = Color3.fromRGB(170, 85, 255)
+TradeVacuumLoadingBar.Size = UDim2.new(0, 0, 1, 0)
+TradeVacuumLoadingBar.BorderSizePixel = 0
+local vacuumBarCorner = Instance.new("UICorner")
+vacuumBarCorner.CornerRadius = UDim.new(0, 10)
+vacuumBarCorner.Parent = TradeVacuumLoadingBar
+
+local toggledLag = false
+local toggledVacuum = false
+local loadingLag = false
+local loadingVacuum = false
+
+local function startLoading(loadingBG, loadingBar, callback)
+if loadingBG.Visible then return end
+loadingBG.Visible = true
+loadingBar.Size = UDim2.new(0, 0, 1, 0)
+local tweenInfo = TweenInfo.new(5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+local goal = {Size = UDim2.new(1, 0, 1, 0)}
+local tween = TweenService:Create(loadingBar, tweenInfo, goal)
+tween:Play()
+tween.Completed:Connect(function()
+loadingBG.Visible = false
+callback()
+end)
+end
+
+TradeLagButton.MouseButton1Click:Connect(function()
+if loadingLag then return end
+loadingLag = true
+TradeLagButton.Text = "Loading..."
+TradeLagButton.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
+TradeLagLoadingBG.Visible = true
+TradeLagLoadingBar.Size = UDim2.new(0, 0, 1, 0)
+startLoading(TradeLagLoadingBG, TradeLagLoadingBar, function()
+toggledLag = not toggledLag
+if toggledLag then
+TradeLagButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+TradeLagButton.Text = "ON"
+else
+TradeLagButton.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+TradeLagButton.Text = "OFF"
+end
+loadingLag = false
+end)
+end)
+
+TradeVacuumButton.MouseButton1Click:Connect(function()
+if loadingVacuum then return end
+loadingVacuum = true
+TradeVacuumButton.Text = "Loading..."
+TradeVacuumButton.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
+TradeVacuumLoadingBG.Visible = true
+TradeVacuumLoadingBar.Size = UDim2.new(0, 0, 1, 0)
+startLoading(TradeVacuumLoadingBG, TradeVacuumLoadingBar, function()
+toggledVacuum = not toggledVacuum
+if toggledVacuum then
+TradeVacuumButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+TradeVacuumButton.Text = "ON"
+else
+TradeVacuumButton.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+TradeVacuumButton.Text = "OFF"
+end
+loadingVacuum = false
+end)
+end)
+
+local tweenInfoMain = TweenInfo.new(6, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+local goalMain = {Size = UDim2.new(1, 0, 1, 0)}
+local tweenMain = TweenService:Create(LoadingBar, tweenInfoMain, goalMain)
+tweenMain:Play()
+
+tweenMain.Completed:Connect(function()
+LoadingBarBackground.Visible = false
+TradeLagButton.Visible = true
+TradeLagLabel.Visible = true
+TradeLagLoadingBG.Visible = false
+TradeLagLoadingBar.Size = UDim2.new(0, 0, 1, 0)
+TradeVacuumButton.Visible = true
+TradeVacuumLabel.Visible = true
+TradeVacuumLoadingBG.Visible = false
+TradeVacuumLoadingBar.Size = UDim2.new(0, 0, 1, 0)
+end)
+
+CloseButton.MouseButton1Click:Connect(function()
+Frame.Visible = false
+end)
+
+SettingsButton.MouseButton1Click:Connect(function()
+print("Settings clicked")
+end)
