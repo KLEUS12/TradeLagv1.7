@@ -29,7 +29,7 @@ Gradient.Color = ColorSequence.new{
 Gradient.Rotation = 45
 
 local Title = Instance.new("TextLabel", Frame)
-Title.Text = "TradeLock v.1.7"
+Title.Text = "TradeLock v.1.8"
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 20
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -179,7 +179,7 @@ TradeVacuum.label.Visible = false
 
 local MiniIcon = Instance.new("TextButton", ScreenGui)
 MiniIcon.Size = UDim2.new(0, 100, 0, 40)
-MiniIcon.Position = UDim2.new(1, -110, 1, -60)
+MiniIcon.Position = UDim2.new(1, -110, 0, 10)
 MiniIcon.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
 MiniIcon.TextColor3 = Color3.fromRGB(255, 255, 255)
 MiniIcon.Text = "TradeLock"
@@ -204,3 +204,4 @@ end)
 SettingsButton.MouseButton1Click:Connect(function()
     print("Settings clicked")
 end)
+
