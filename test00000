@@ -47,12 +47,19 @@ SettingsButton.BackgroundTransparency = 1
 SettingsButton.Image = "rbxassetid://6031280882"
 SettingsButton.AutoButtonColor = false
 
-local CloseButton = Instance.new("ImageButton", Frame)
-CloseButton.Size = UDim2.new(0, 28, 0, 28)
-CloseButton.Position = UDim2.new(1, -35, 0, 10)
-CloseButton.BackgroundTransparency = 1
-CloseButton.Image = "rbxassetid://6031094678"
-CloseButton.AutoButtonColor = false
+local CloseButton = Instance.new("TextButton", Frame)
+CloseButton.Size = UDim2.new(0, 60, 0, 28)
+CloseButton.Position = UDim2.new(1, -70, 0, 10)
+CloseButton.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.Text = "TradeLock"
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.TextSize = 16
+CloseButton.AutoButtonColor = true
+CloseButton.AnchorPoint = Vector2.new(1, 0)
+CloseButton.BorderSizePixel = 0
+local closeCorner = Instance.new("UICorner", CloseButton)
+closeCorner.CornerRadius = UDim.new(0, 12)
 
 local LoadingBarBackground = Instance.new("Frame", Frame)
 LoadingBarBackground.BackgroundColor3 = Color3.fromRGB(50, 50, 70)
@@ -177,13 +184,19 @@ TradeLag.label.Visible = false
 TradeVacuum.button.Visible = false
 TradeVacuum.label.Visible = false
 
-local MiniIcon = Instance.new("ImageButton", ScreenGui)
-MiniIcon.Size = UDim2.new(0, 48, 0, 48)
-MiniIcon.Position = UDim2.new(1, -60, 0, 15)
-MiniIcon.BackgroundTransparency = 1
-MiniIcon.Image = "rbxassetid://6031300581"
+local MiniIcon = Instance.new("TextButton", ScreenGui)
+MiniIcon.Size = UDim2.new(0, 100, 0, 40)
+MiniIcon.Position = UDim2.new(1, -110, 0, 15)
+MiniIcon.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
+MiniIcon.TextColor3 = Color3.fromRGB(255, 255, 255)
+MiniIcon.Text = "TradeLock"
+MiniIcon.Font = Enum.Font.GothamBold
+MiniIcon.TextSize = 18
 MiniIcon.Visible = false
 MiniIcon.AutoButtonColor = true
+MiniIcon.BorderSizePixel = 0
+local miniCorner = Instance.new("UICorner", MiniIcon)
+miniCorner.CornerRadius = UDim.new(0, 12)
 
 CloseButton.MouseButton1Click:Connect(function()
     Frame.Visible = false
