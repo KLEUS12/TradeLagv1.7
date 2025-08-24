@@ -1,6 +1,9 @@
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
 local TweenService = game:GetService("TweenService")
-local player = game.Players.LocalPlayer or game:GetService("Players").LocalPlayer
-while not player do wait() player = game.Players.LocalPlayer or game:GetService("Players").LocalPlayer end
+local player = game.Players.LocalPlayer
 local PlayerGui = player:WaitForChild("PlayerGui")
 
 if PlayerGui:FindFirstChild("LoadingMenu") then
@@ -17,8 +20,7 @@ Frame.Size = UDim2.new(0, 350, 0, 150)
 Frame.Position = UDim2.new(0.5, -175, 0.5, -75)
 Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
 Frame.BorderSizePixel = 0
-local UICorner = Instance.new("UICorner", Frame)
-UICorner.CornerRadius = UDim.new(0, 18)
+Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 18)
 
 local Gradient = Instance.new("UIGradient", Frame)
 Gradient.Color = ColorSequence.new{
@@ -28,6 +30,7 @@ Gradient.Color = ColorSequence.new{
 Gradient.Rotation = 45
 
 local Title = Instance.new("TextLabel", Frame)
+Title.Text = "TradeLock v.1.8"
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 20
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -57,17 +60,14 @@ LoadingBarBackground.BackgroundColor3 = Color3.fromRGB(50, 50, 70)
 LoadingBarBackground.Position = UDim2.new(0, 15, 1, -35)
 LoadingBarBackground.Size = UDim2.new(1, -30, 0, 25)
 LoadingBarBackground.BorderSizePixel = 0
-local bgCorner = Instance.new("UICorner", LoadingBarBackground)
-bgCorner.CornerRadius = UDim.new(0, 12)
+Instance.new("UICorner", LoadingBarBackground).CornerRadius = UDim.new(0, 12)
 
 local LoadingBar = Instance.new("Frame", LoadingBarBackground)
 LoadingBar.BackgroundColor3 = Color3.fromRGB(170, 85, 255)
 LoadingBar.Size = UDim2.new(0, 0, 1, 0)
 LoadingBar.BorderSizePixel = 0
-local barCorner = Instance.new("UICorner", LoadingBar)
-barCorner.CornerRadius = UDim.new(0, 12)
+Instance.new("UICorner", LoadingBar).CornerRadius = UDim.new(0, 12)
 
--- Функция для кнопок
 local function createToggleButton(parent, posY, text)
     local button = Instance.new("TextButton", parent)
     button.Size = UDim2.new(0, 70, 0, 35)
@@ -78,13 +78,13 @@ local function createToggleButton(parent, posY, text)
     button.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
     button.Text = "OFF"
     button.AutoButtonColor = false
-    local corner = Instance.new("UICorner", button)
-    corner.CornerRadius = UDim.new(0, 12)
+    Instance.new("UICorner", button).CornerRadius = UDim.new(0, 12)
 
     local label = Instance.new("TextLabel", parent)
     label.Size = UDim2.new(0, 90, 0, 35)
     label.Position = UDim2.new(0, 95, 0, posY)
     label.BackgroundTransparency = 1
+    label.Text = text
     label.Font = Enum.Font.GothamBold
     label.TextSize = 18
     label.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -96,15 +96,13 @@ local function createToggleButton(parent, posY, text)
     loadingBg.Size = UDim2.new(0, 150, 0, 25)
     loadingBg.BorderSizePixel = 0
     loadingBg.Visible = false
-    local loadingBgCorner = Instance.new("UICorner", loadingBg)
-    loadingBgCorner.CornerRadius = UDim.new(0, 12)
+    Instance.new("UICorner", loadingBg).CornerRadius = UDim.new(0, 12)
 
     local loadingBar = Instance.new("Frame", loadingBg)
     loadingBar.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
     loadingBar.Size = UDim2.new(0, 0, 1, 0)
     loadingBar.BorderSizePixel = 0
-    local loadingBarCorner = Instance.new("UICorner", loadingBar)
-    loadingBarCorner.CornerRadius = UDim.new(0, 12)
+    Instance.new("UICorner", loadingBar).CornerRadius = UDim.new(0, 12)
 
     return {
         button = button,
@@ -124,14 +122,11 @@ local function runLoadingAnimation(toggleData)
     toggleData.loadingBg.Visible = true
     toggleData.loadingBar.Size = UDim2.new(0, 0, 1, 0)
     local duration = 5
-
     toggleData.button.AutoButtonColor = false
     toggleData.button.Text = "Loading..."
     toggleData.button.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-
     toggleData.tween = TweenService:Create(toggleData.loadingBar, TweenInfo.new(duration, Enum.EasingStyle.Linear), {Size = UDim2.new(1, 0, 1, 0)})
     toggleData.tween:Play()
-
     toggleData.tween.Completed:Connect(function()
         toggleData.loadingBg.Visible = false
         toggleData.toggled = not toggleData.toggled
@@ -180,13 +175,13 @@ MiniIcon.Size = UDim2.new(0, 100, 0, 40)
 MiniIcon.Position = UDim2.new(1, -110, 0, 10)
 MiniIcon.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
 MiniIcon.TextColor3 = Color3.fromRGB(255, 255, 255)
+MiniIcon.Text = "TradeLock"
 MiniIcon.Font = Enum.Font.GothamBold
 MiniIcon.TextSize = 18
 MiniIcon.Visible = false
 MiniIcon.AutoButtonColor = true
 MiniIcon.BorderSizePixel = 0
-local miniCorner = Instance.new("UICorner", MiniIcon)
-miniCorner.CornerRadius = UDim.new(0, 12)
+Instance.new("UICorner", MiniIcon).CornerRadius = UDim.new(0, 12)
 
 CloseButton.MouseButton1Click:Connect(function()
     Frame.Visible = false
@@ -198,94 +193,45 @@ MiniIcon.MouseButton1Click:Connect(function()
     MiniIcon.Visible = false
 end)
 
--------------------------------------------------
--- 🌍 Переводы
-local translations = {
-    EN = {
-        Title = "TradeLock v.1.8",
-        TradeLag = "TradeLag",
-        TradeVacuum = "TradeVacuum",
-        Settings = "Settings",
-        Language = "Language:",
-        Back = "Back",
-        CheckStatus = "Check Status",
-        MiniIcon = "TradeLock"
-    },
-    RU = {
-        Title = "ТрейдЛок v.1.8",
-        TradeLag = "ТрейдЛаг",
-        TradeVacuum = "ТрейдВакуум",
-        Settings = "Настройки",
-        Language = "Язык:",
-        Back = "Назад",
-        CheckStatus = "Проверить статус",
-        MiniIcon = "ТрейдЛок"
-    }
-}
+local SettingsFrame = Instance.new("Frame", ScreenGui)
+SettingsFrame.Size = UDim2.new(0, 250, 0, 150)
+SettingsFrame.Position = UDim2.new(0.5, -125, 0.5, -75)
+SettingsFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
+SettingsFrame.Visible = false
+Instance.new("UICorner", SettingsFrame).CornerRadius = UDim.new(0, 12)
 
-local SettingsMenu = Instance.new("Frame", ScreenGui)
-SettingsMenu.Size = UDim2.new(0, 300, 0, 200)
-SettingsMenu.Position = UDim2.new(0.5, -150, 0.5, -100)
-SettingsMenu.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
-SettingsMenu.Visible = false
-SettingsMenu.BorderSizePixel = 0
-local settingsCorner = Instance.new("UICorner", SettingsMenu)
-settingsCorner.CornerRadius = UDim.new(0, 18)
+local langLabel = Instance.new("TextLabel", SettingsFrame)
+langLabel.Text = "Language: EN"
+langLabel.Font = Enum.Font.GothamBold
+langLabel.TextSize = 18
+langLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+langLabel.Position = UDim2.new(0, 10, 0, 10)
+langLabel.Size = UDim2.new(0, 200, 0, 25)
+langLabel.BackgroundTransparency = 1
 
-local settingsTitle = Instance.new("TextLabel", SettingsMenu)
-settingsTitle.Font = Enum.Font.GothamBold
-settingsTitle.TextSize = 20
-settingsTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-settingsTitle.BackgroundTransparency = 1
-settingsTitle.Position = UDim2.new(0, 15, 0, 12)
-settingsTitle.Size = UDim2.new(1, -30, 0, 25)
-settingsTitle.TextXAlignment = Enum.TextXAlignment.Left
+local langButton = Instance.new("TextButton", SettingsFrame)
+langButton.Size = UDim2.new(0, 100, 0, 35)
+langButton.Position = UDim2.new(0, 10, 0, 50)
+langButton.Text = "Switch"
+langButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+langButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+langButton.Font = Enum.Font.GothamBold
+langButton.TextSize = 16
+Instance.new("UICorner", langButton).CornerRadius = UDim.new(0, 10)
 
-local languageLabel = Instance.new("TextLabel", SettingsMenu)
-languageLabel.Font = Enum.Font.GothamBold
-languageLabel.TextSize = 18
-languageLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-languageLabel.BackgroundTransparency = 1
-languageLabel.Position = UDim2.new(0, 15, 0, 60)
-languageLabel.Size = UDim2.new(0, 120, 0, 25)
-languageLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-local languageButton = Instance.new("TextButton", SettingsMenu)
-languageButton.Size = UDim2.new(0, 80, 0, 30)
-languageButton.Position = UDim2.new(0, 140, 0, 58)
-languageButton.Font = Enum.Font.GothamBold
-languageButton.TextSize = 16
-languageButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-languageButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-languageButton.AutoButtonColor = true
-local langCorner = Instance.new("UICorner", languageButton)
-langCorner.CornerRadius = UDim.new(0, 10)
-
-local backButton = Instance.new("TextButton", SettingsMenu)
-backButton.Size = UDim2.new(0, 80, 0, 30)
-backButton.Position = UDim2.new(0.5, -40, 1, -45)
-backButton.Font = Enum.Font.GothamBold
-backButton.TextSize = 16
-backButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-backButton.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
-local backCorner = Instance.new("UICorner", backButton)
-backCorner.CornerRadius = UDim.new(0, 10)
-
--- ✅ Check Status button
-local statusButton = Instance.new("TextButton", SettingsMenu)
-statusButton.Size = UDim2.new(0, 120, 0, 30)
-statusButton.Position = UDim2.new(0.5, -60, 0, 110)
+local statusButton = Instance.new("TextButton", SettingsFrame)
+statusButton.Size = UDim2.new(0, 120, 0, 35)
+statusButton.Position = UDim2.new(0, 10, 0, 95)
+statusButton.Text = "Check Status"
+statusButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+statusButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 statusButton.Font = Enum.Font.GothamBold
 statusButton.TextSize = 16
-statusButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-statusButton.BackgroundColor3 = Color3.fromRGB(0, 200, 120)
-local statusCorner = Instance.new("UICorner", statusButton)
-statusCorner.CornerRadius = UDim.new(0, 10)
+Instance.new("UICorner", statusButton).CornerRadius = UDim.new(0, 10)
 
--- 🚨 Всплывающий error
 local errorLabel = Instance.new("TextLabel", ScreenGui)
 errorLabel.Size = UDim2.new(0, 200, 0, 40)
-errorLabel.Position = UDim2.new(0.5, -100, 0.7, 0)
+errorLabel.Position = UDim2.new(0.5, -100, 0.5, -20)
 errorLabel.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
 errorLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 errorLabel.Font = Enum.Font.GothamBold
@@ -293,56 +239,41 @@ errorLabel.TextSize = 20
 errorLabel.Text = "erroR"
 errorLabel.Visible = false
 errorLabel.BorderSizePixel = 0
-local errorCorner = Instance.new("UICorner", errorLabel)
-errorCorner.CornerRadius = UDim.new(0, 12)
-
--------------------------------------------------
--- 🔄 Логика
-local currentLanguage = "EN"
-
-local function updateLanguage(lang)
-    Title.Text = translations[lang].Title
-    TradeLag.label.Text = translations[lang].TradeLag
-    TradeVacuum.label.Text = translations[lang].TradeVacuum
-    settingsTitle.Text = translations[lang].Settings
-    languageLabel.Text = translations[lang].Language
-    backButton.Text = translations[lang].Back
-    statusButton.Text = translations[lang].CheckStatus
-    MiniIcon.Text = translations[lang].MiniIcon
-    languageButton.Text = lang
-end
-
-SettingsButton.MouseButton1Click:Connect(function()
-    Frame.Visible = false
-    SettingsMenu.Visible = true
-end)
-
-backButton.MouseButton1Click:Connect(function()
-    SettingsMenu.Visible = false
-    Frame.Visible = true
-end)
-
-languageButton.MouseButton1Click:Connect(function()
-    currentLanguage = (currentLanguage == "EN" and "RU" or "EN")
-    updateLanguage(currentLanguage)
-end)
+Instance.new("UICorner", errorLabel).CornerRadius = UDim.new(0, 12)
 
 statusButton.MouseButton1Click:Connect(function()
     errorLabel.Visible = true
     errorLabel.TextTransparency = 0
     errorLabel.BackgroundTransparency = 0
     errorLabel.Position = UDim2.new(0.5, -100, 0.7, 0)
-
     local tween = TweenService:Create(errorLabel, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
         TextTransparency = 1,
         BackgroundTransparency = 1,
         Position = UDim2.new(0.5, -100, 0.6, 0)
     })
     tween:Play()
-
     tween.Completed:Connect(function()
         errorLabel.Visible = false
+        errorLabel.BackgroundTransparency = 0
+        errorLabel.TextTransparency = 0
+        errorLabel.Position = UDim2.new(0.5, -100, 0.5, -20)
     end)
+end)
+
+local currentLang = "EN"
+langButton.MouseButton1Click:Connect(function()
+    if currentLang == "EN" then
+        currentLang = "RU"
+        langLabel.Text = "Language: RU"
+    else
+        currentLang = "EN"
+        langLabel.Text = "Language: EN"
+    end
+end)
+
+SettingsButton.MouseButton1Click:Connect(function()
+    Frame.Visible = not Frame.Visible
+    SettingsFrame.Visible = not SettingsFrame.Visible
 end)
 
 -- Старт
